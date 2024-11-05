@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApiAlertaMinsal.Infrastructure.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<ApplicationUser>(options), IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
+    public DbSet<Comuna> Comunas => Set<Comuna>();
+    public DbSet<Region> Regiones => Set<Region>();
     public DbSet<TodoList> TodoLists => Set<TodoList>();
-
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     protected override void OnModelCreating(ModelBuilder builder)
