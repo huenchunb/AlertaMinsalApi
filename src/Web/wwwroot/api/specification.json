@@ -31,6 +31,80 @@
         ]
       }
     },
+    "/api/Establecimientos/{id}": {
+      "get": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "GetEstablishmentById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstablishmentDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Establecimientos/CreateEstablecimiento": {
+      "post": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "CreateEstablishment",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEstablishmentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstablishmentDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Identities/GetRoles": {
       "get": {
         "tags": [
@@ -857,6 +931,113 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "EstablishmentDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "nivel": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "tipoUrgencia": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "complejidad": {
+            "type": "string"
+          },
+          "tipoAtencion": {
+            "type": "string"
+          },
+          "comuna": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateEstablishmentCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tipoEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "tipoUrgenciaEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "complejidadEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipoAtencionEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
