@@ -3,7 +3,7 @@ using WebApiAlertaMinsal.Application.Common.Models;
 using WebApiAlertaMinsal.Application.Common.Security;
 using WebApiAlertaMinsal.Domain.Constants;
 
-namespace Microsoft.Extensions.DependencyInjection.Establecimientos.Queries.GetEstablishmentLookupData;
+namespace WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentLookupData;
 
 [Authorize(Roles = Roles.Administrator)]
 public record GetEstablishmentLookupDataQuery : IRequest<LookupEstablishmentDependenciesDto>;
