@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using WebApiAlertaMinsal.Domain.Constants;
+﻿using WebApiAlertaMinsal.Domain.Constants;
 using WebApiAlertaMinsal.Domain.Entities;
 using WebApiAlertaMinsal.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -24,30 +23,21 @@ public static class InitialiserExtensions
     }
 }
 
-public class ApplicationDbContextInitialiser
+public class ApplicationDbContextInitialiser(
+    ILogger<ApplicationDbContextInitialiser> logger,
+    ApplicationDbContext context,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
 {
-    private readonly ILogger<ApplicationDbContextInitialiser> _logger;
-    private readonly ApplicationDbContext _context;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    {
-        _logger = logger;
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
     public async Task InitialiseAsync()
     {
         try
         {
-            await _context.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            logger.LogError(ex, "An error occurred while initialising the database.");
             throw;
         }
     }
@@ -60,50 +50,112 @@ public class ApplicationDbContextInitialiser
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while seeding the database.");
+            logger.LogError(ex, "An error occurred while seeding the database.");
             throw;
         }
     }
 
-    public async Task TrySeedAsync()
+    private async Task TrySeedAsync()
     {
         // Default roles
         var administratorRole = new IdentityRole(Roles.Administrator);
 
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
-            await _roleManager.CreateAsync(administratorRole);
+            await roleManager.CreateAsync(administratorRole);
         }
 
         // Default users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator =
+            new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Administrator1!");
+            await userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
         // Default data
         // Seed, if necessary
-        if (!_context.TodoLists.Any())
+        if (!context.TodoLists.Any())
         {
-            _context.TodoLists.Add(new TodoList
+            context.TodoLists.Add(new TodoList
             {
                 Title = "Todo List",
                 Items =
                 {
                     new TodoItem { Title = "Make a todo list 📃" },
                     new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯"},
+                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯" },
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
             });
 
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.Niveles.Any())
+        {
+            await context.Niveles.AddRangeAsync(new List<NivelEstablecimiento>
+            {
+                new("Primario"), new("Secundario"), new("Terciario")
+            });
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.Complejidades.Any())
+        {
+            await context.Complejidades.AddRangeAsync(new List<ComplejidadEstablecimiento>
+            {
+                new("Baja complejidad"), new("Mediana complejidad"), new("Alta complejidad")
+            });
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.TiposAtenciones.Any())
+        {
+            await context.TiposAtenciones.AddRangeAsync(new List<TipoAtencionEstablecimiento>
+            {
+                new("Atención abierta-ambulatoria"), new("Atención cerrada-hospitalaria")
+            });
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.TiposEstablecimientos.Any())
+        {
+            await context.TiposEstablecimientos.AddRangeAsync(new List<TipoEstablecimiento>
+            {
+                new("Servicio de atención primaria de urgencia (SAPU)"),
+                new("Centro de salud familiar (CESFAM)"),
+                new("Centro comunitario de salud familiar (CECOSF)"),
+                new("Centro comunatario de salud mental (COSAM)"),
+                new("Centro de especialidad"),
+                new("Dirección servicio de salud"),
+                new("Hospital"),
+                new("Programa de reparación y atención integral de salud (PRAIS)"),
+                new("Unidad de salud funcionarios")
+            });
+
+            await context.SaveChangesAsync();
+        }
+
+        if (!context.TiposUrgencias.Any())
+        {
+            await context.TiposUrgencias.AddRangeAsync(new List<TipoUrgenciaEstablecimiento>
+            {
+                new("No aplica"),
+                new("Urgencia hospitalaria (UEH)"),
+                new("Hospitalaria especializada"),
+                new("Urgencia ambulatoria (SAPU)")
+            });
+
+            await context.SaveChangesAsync();
         }
     }
 }
