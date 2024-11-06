@@ -17,7 +17,26 @@ public class ComunaConfiguration : IEntityTypeConfiguration<Comuna>
             .HasMaxLength(100)
             .IsRequired();
 
+        builder.Property(e => e.Created)
+            .IsRequired()
+            .HasDefaultValue(DateTimeOffset.Now);
+
+        builder.Property(e => e.CreatedBy)
+            .IsRequired(false);
+
+        builder.Property(e => e.LastModified)
+            .IsRequired()
+            .HasDefaultValue(DateTimeOffset.Now);
+
+        builder.Property(e => e.LastModifiedBy)
+            .IsRequired(false);
+
         builder.HasIndex(e => e.Name)
             .IsUnique();
+
+        builder.HasMany(e => e.Establecimientos)
+            .WithOne(e => e.Comuna)
+            .HasForeignKey(e => e.ComunaId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
