@@ -28,10 +28,10 @@ public class Establecimiento(
     public int ComplejidadEstablecimientoId { get; set; } = complejidadEstablecimientoId;
     public int TipoAtencionEstablecimientoId { get; set; } = tipoAtencionEstablecimientoId;
     public int ComunaId { get; set; } = comunaId;
-    public TipoEstablecimiento TipoEstablecimiento { get; set; } = null!;
-    public NivelEstablecimiento NivelEstablecimiento { get; set; } = null!;
-    public TipoUrgenciaEstablecimiento TipoUrgenciaEstablecimiento { get; set; } = null!;
-    public ComplejidadEstablecimiento ComplejidadEstablecimiento { get; set; } = null!;
-    public TipoAtencionEstablecimiento TipoAtencionEstablecimiento { get; set; } = null!;
-    public Comuna Comuna { get; set; } = null!;
+    public virtual TipoEstablecimiento TipoEstablecimiento { get; set; } = null!;
+    public virtual NivelEstablecimiento NivelEstablecimiento { get; set; } = null!;
+    public virtual TipoUrgenciaEstablecimiento TipoUrgenciaEstablecimiento { get; set; } = null!;
+    public virtual ComplejidadEstablecimiento ComplejidadEstablecimiento { get; set; } = null!;
+    public virtual TipoAtencionEstablecimiento TipoAtencionEstablecimiento { get; set; } = null!;
+    public virtual Comuna Comuna { get; set; } = null!;
 }
