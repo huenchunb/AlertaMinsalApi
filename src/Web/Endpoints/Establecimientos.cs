@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.DeleteEstablishment;
+using Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.EditEstablishment;
 using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentById;
 using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentLookupData;
 using WebApiAlertaMinsal.Application.Common.Models;
@@ -11,9 +13,11 @@ public class Establecimientos : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetEstablishmentDependencies, "GetDependenciasEstablecimiento")
+            .MapGet(GetEstablishmentDependencies, "/dependencies")
             .MapGet(GetEstablishmentById, "{id:int}")
-            .MapPost(CreateEstablishment, "CreateEstablecimiento");
+            .MapPost(CreateEstablishment)
+            .MapPut(EditEstablishment, "{id:int}")
+            .MapDelete(DeleteEstablishment, "{id:int}");
     }
 
     private static Task<LookupEstablishmentDependenciesDto> GetEstablishmentDependencies(ISender sender)
@@ -27,8 +31,21 @@ public class Establecimientos : EndpointGroupBase
         return sender.Send(new GetEstablishmentByIdQuery(id));
     }
 
-    private static Task<EstablishmentDto> CreateEstablishment(ISender sender, CreateEstablishmentCommand command)
+    private async static Task<Unit> CreateEstablishment(ISender sender, CreateEstablishmentCommand command)
     {
-        return sender.Send(command);
+        return await sender.Send(command);
+    }
+
+    private async static Task<IResult> EditEstablishment(ISender sender, EditEstablishmentCommand command, int id)
+    {
+        if (id != command.Id) return Results.BadRequest();
+        await sender.Send(command);
+        return Results.NoContent();
+    }
+
+    private async static Task<IResult> DeleteEstablishment(ISender sender, int id)
+    {
+        await sender.Send(new DeleteEstablishmentCommand(id));
+        return Results.NoContent();
     }
 }

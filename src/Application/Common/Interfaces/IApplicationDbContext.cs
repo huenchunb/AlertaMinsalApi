@@ -1,4 +1,5 @@
-﻿using WebApiAlertaMinsal.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using WebApiAlertaMinsal.Domain.Entities;
 
 namespace WebApiAlertaMinsal.Application.Common.Interfaces;
 
@@ -15,4 +16,5 @@ public interface IApplicationDbContext
     DbSet<TodoList> TodoLists { get; }
     DbSet<TodoItem> TodoItems { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 }
