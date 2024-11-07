@@ -4,14 +4,14 @@ using WebApiAlertaMinsal.Domain.Entities;
 
 namespace WebApiAlertaMinsal.Infrastructure.Data.Configurations;
 
-public class RegionConfiguration : IEntityTypeConfiguration<Region>
+public class ComplejidadEstablecimientoConfiguration : IEntityTypeConfiguration<ComplejidadEstablecimiento>
 {
-    public void Configure(EntityTypeBuilder<Region> builder)
+    public void Configure(EntityTypeBuilder<ComplejidadEstablecimiento> builder)
     {
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd();
 
         builder.Property(e => e.Name)
             .HasMaxLength(100)
@@ -30,13 +30,13 @@ public class RegionConfiguration : IEntityTypeConfiguration<Region>
 
         builder.Property(e => e.LastModifiedBy)
             .IsRequired(false);
-        
+
         builder.HasIndex(e => e.Name)
             .IsUnique();
 
-        builder.HasMany(e => e.Comunas)
-            .WithOne(e => e.Region)
-            .HasForeignKey(e => e.IdRegion)
+        builder.HasMany(e => e.Establecimientos)
+            .WithOne(e => e.ComplejidadEstablecimiento)
+            .HasForeignKey(e => e.ComplejidadEstablecimientoId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

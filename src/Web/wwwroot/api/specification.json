@@ -6,6 +6,173 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Establecimientos/dependencies": {
+      "get": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "GetEstablishmentDependencies",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LookupEstablishmentDependenciesDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Establecimientos/{id}": {
+      "get": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "GetEstablishmentById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstablishmentDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "EditEstablishment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditEstablishmentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "DeleteEstablishment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Establecimientos": {
+      "post": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "CreateEstablishment",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEstablishmentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Identities/GetRoles": {
       "get": {
         "tags": [
@@ -785,6 +952,226 @@
   },
   "components": {
     "schemas": {
+      "LookupEstablishmentDependenciesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "establishmentComplexity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentLevel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentAtentionType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentUgencyType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          }
+        }
+      },
+      "LookupDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "EstablishmentDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "nivel": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "tipoUrgencia": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "complejidad": {
+            "type": "string"
+          },
+          "tipoAtencion": {
+            "type": "string"
+          },
+          "comuna": {
+            "type": "string"
+          }
+        }
+      },
+      "Unit": {
+        "type": "object",
+        "description": "Represents a void type, since Void is not a valid return type in C#.",
+        "additionalProperties": false
+      },
+      "CreateEstablishmentCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tipoEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "tipoUrgenciaEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "complejidadEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipoAtencionEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EditEstablishmentCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tipoEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nivelEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "streetNumber": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "tipoUrgenciaEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "complejidadEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipoAtencionEstablecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "RolDto": {
         "type": "object",
         "additionalProperties": false,
@@ -932,20 +1319,6 @@
             "items": {
               "$ref": "#/components/schemas/TodoListDto"
             }
-          }
-        }
-      },
-      "LookupDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
           }
         }
       },

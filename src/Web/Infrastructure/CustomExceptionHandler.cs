@@ -11,8 +11,8 @@ public class CustomExceptionHandler : IExceptionHandler
     public CustomExceptionHandler()
     {
         // Register known exception types and handlers.
-        _exceptionHandlers = new()
-            {
+        _exceptionHandlers = new Dictionary<Type, Func<HttpContext, Exception, Task>>
+        {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },

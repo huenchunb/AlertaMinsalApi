@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApiAlertaMinsal.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using WebApiAlertaMinsal.Infrastructure.Data;
 namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241106013411_Establecimiento")]
+    partial class Establecimiento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 739, DateTimeKind.Unspecified).AddTicks(9650), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 62, DateTimeKind.Unspecified).AddTicks(8550), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -174,7 +177,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 739, DateTimeKind.Unspecified).AddTicks(9930), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 62, DateTimeKind.Unspecified).AddTicks(8950), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -189,7 +192,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Complejidades");
+                    b.ToTable("ComplejidadEstablecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.Comuna", b =>
@@ -200,7 +203,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(1510), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(930), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -211,7 +214,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(1730), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(1200), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -250,7 +253,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(3820), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(3410), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -258,7 +261,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(4070), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(3730), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -316,7 +319,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
 
                     b.HasIndex("TipoUrgenciaEstablecimientoId");
 
-                    b.ToTable("Establecimientos");
+                    b.ToTable("Establecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.NivelEstablecimiento", b =>
@@ -330,7 +333,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(5120), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(5000), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -338,7 +341,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(5290), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(5240), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -353,7 +356,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Niveles");
+                    b.ToTable("NivelEstablecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.Region", b =>
@@ -364,7 +367,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(6640), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(6810), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -372,7 +375,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(6830), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(7010), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -401,7 +404,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(8840), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(9030), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -409,7 +412,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 740, DateTimeKind.Unspecified).AddTicks(9020), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 63, DateTimeKind.Unspecified).AddTicks(9290), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -424,7 +427,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TiposAtenciones");
+                    b.ToTable("TipoAtencionEstablecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.TipoEstablecimiento", b =>
@@ -438,7 +441,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 741, DateTimeKind.Unspecified).AddTicks(350), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 64, DateTimeKind.Unspecified).AddTicks(820), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -446,7 +449,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 741, DateTimeKind.Unspecified).AddTicks(540), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 64, DateTimeKind.Unspecified).AddTicks(1070), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -461,7 +464,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TiposEstablecimientos");
+                    b.ToTable("TipoEstablecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.TipoUrgenciaEstablecimiento", b =>
@@ -475,7 +478,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 741, DateTimeKind.Unspecified).AddTicks(1940), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 64, DateTimeKind.Unspecified).AddTicks(2550), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -483,7 +486,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 23, 21, 40, 741, DateTimeKind.Unspecified).AddTicks(2120), new TimeSpan(0, -3, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 11, 5, 22, 34, 11, 64, DateTimeKind.Unspecified).AddTicks(2810), new TimeSpan(0, -3, 0, 0, 0)));
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -498,7 +501,7 @@ namespace WebApiAlertaMinsal.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TiposUrgencias");
+                    b.ToTable("TipoUrgenciaEstablecimiento");
                 });
 
             modelBuilder.Entity("WebApiAlertaMinsal.Domain.Entities.TodoItem", b =>
