@@ -11,6 +11,8 @@ builder.Services.AddWebServices();
 
 var app = builder.Build();
 
+app.UseCors("AllowLocalhost3000");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
