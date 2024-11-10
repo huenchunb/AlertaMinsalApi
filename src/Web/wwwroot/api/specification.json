@@ -6,6 +6,36 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Empleados": {
+      "post": {
+        "tags": [
+          "Empleados"
+        ],
+        "operationId": "CreateEmpleado",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmpleadoCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Establecimientos/dependencies": {
       "get": {
         "tags": [
@@ -952,6 +982,56 @@
   },
   "components": {
     "schemas": {
+      "CreateEmpleadoCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rut": {
+            "type": "string",
+            "nullable": true
+          },
+          "digito": {
+            "type": "string",
+            "nullable": true
+          },
+          "rutNormalized": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "streetNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "LookupEstablishmentDependenciesDto": {
         "type": "object",
         "additionalProperties": false,
