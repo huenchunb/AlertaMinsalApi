@@ -7,7 +7,10 @@ public interface IApplicationDbContext
 {
     DbSet<ComplejidadEstablecimiento> Complejidades { get; }
     DbSet<Comuna> Comunas { get; }
+    DbSet<Empleado> Empleados { get; }
     DbSet<Establecimiento> Establecimientos { get; }
+    DbSet<Estamento> Estamentos { get; }
+    DbSet<Mutualidad> Mutualidades { get; }
     DbSet<NivelEstablecimiento> Niveles { get; }
     DbSet<Region> Regiones { get; }
     DbSet<TipoAtencionEstablecimiento> TiposAtenciones { get; }

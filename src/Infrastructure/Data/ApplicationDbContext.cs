@@ -12,7 +12,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<ComplejidadEstablecimiento> Complejidades => Set<ComplejidadEstablecimiento>();
     public DbSet<Comuna> Comunas => Set<Comuna>();
+    public DbSet<Empleado> Empleados => Set<Empleado>();
     public DbSet<Establecimiento> Establecimientos => Set<Establecimiento>();
+    public DbSet<Estamento> Estamentos => Set<Estamento>();
+    public DbSet<Mutualidad> Mutualidades => Set<Mutualidad>();
     public DbSet<NivelEstablecimiento> Niveles => Set<NivelEstablecimiento>();
     public DbSet<Region> Regiones => Set<Region>();
     public DbSet<TipoAtencionEstablecimiento> TiposAtenciones => Set<TipoAtencionEstablecimiento>();
