@@ -48,6 +48,10 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
         builder.Property(e => e.Address)
             .HasMaxLength(200)
             .IsRequired();
+        
+        builder.Property(e => e.StreetNumber)
+            .HasMaxLength(50)
+            .IsRequired();
 
         builder.Property(e => e.ComunaId)
             .IsRequired();

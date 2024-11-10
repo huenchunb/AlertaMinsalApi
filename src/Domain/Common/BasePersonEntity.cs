@@ -11,6 +11,7 @@ public abstract class BasePersonEntity : BaseAuditableEntity
     public string Email { get; set; } = string.Empty;
     public int PhoneNumber { get; set; }
     public string Address { get; set; } = string.Empty;
+    public string StreetNumber { get; set; } = string.Empty;
     public int ComunaId { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
