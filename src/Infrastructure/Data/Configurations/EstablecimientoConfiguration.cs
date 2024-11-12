@@ -72,5 +72,10 @@ public class EstablecimientoConfiguration : IEntityTypeConfiguration<Establecimi
 
         builder.HasIndex(e => e.Name)
             .IsUnique();
+
+        builder.HasMany(e => e.Empleados)
+            .WithOne(e => e.Establecimiento)
+            .HasForeignKey(e => e.EstablecimientoId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

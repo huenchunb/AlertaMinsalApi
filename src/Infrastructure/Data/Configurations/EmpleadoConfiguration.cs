@@ -26,6 +26,9 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
             .HasMaxLength(50)
             .IsRequired();
 
+        builder.HasIndex(e => e.RutNormalized)
+            .IsUnique();
+
         builder.Property(e => e.FirstName)
             .HasMaxLength(100)
             .IsRequired();
@@ -42,13 +45,16 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
             .HasMaxLength(254)
             .IsRequired();
 
+        builder.HasIndex(e => e.Email)
+            .IsUnique();
+
         builder.Property(e => e.PhoneNumber)
             .IsRequired();
 
         builder.Property(e => e.Address)
             .HasMaxLength(200)
             .IsRequired();
-        
+
         builder.Property(e => e.StreetNumber)
             .HasMaxLength(50)
             .IsRequired();
@@ -66,10 +72,16 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
             .HasMaxLength(36)
             .IsRequired();
 
+        builder.HasIndex(e => e.AccountId)
+            .IsUnique();
+
         builder.Property(e => e.MutualidadId)
             .IsRequired();
 
         builder.Property(e => e.EstamentoId)
+            .IsRequired();
+
+        builder.Property(e => e.EstablecimientoId)
             .IsRequired();
     }
 }

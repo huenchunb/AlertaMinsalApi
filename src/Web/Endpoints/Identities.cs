@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection.Identities.Queries.GetRolesByUserId;
 using WebApiAlertaMinsal.Application.Common.Models;
 using WebApiAlertaMinsal.Application.Identities.Queries.GetRoles;
 
@@ -9,11 +10,17 @@ public class Identities : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapGet(GetRoles, "GetRoles");
+            .MapGet(GetRolesByUserId, "GetUserRoles")
+            .MapGet(GetRoles, "GetAllRoles");
     }
 
-    public Task<List<RolDto>> GetRoles(ISender sender)
+    private static async Task<List<RolDto>> GetRoles(ISender sender)
     {
-        return sender.Send(new GetRolesQuery());
+        return await sender.Send(new GetRolesQuery());
+    }
+
+    private static async Task<List<string>> GetRolesByUserId(ISender sender)
+    {
+        return await sender.Send(new GetRolesByUserIdQuery());
     }
 }

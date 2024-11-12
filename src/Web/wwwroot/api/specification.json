@@ -7,6 +7,51 @@
   },
   "paths": {
     "/api/Empleados": {
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "operationId": "GetEmpleadoWithPagination",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfEmpleadoDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Empleados"
@@ -27,6 +72,43 @@
         "responses": {
           "200": {
             "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Empleados/{id}": {
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "operationId": "GetEmpleado",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmpleadoDto"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -203,7 +285,35 @@
         ]
       }
     },
-    "/api/Identities/GetRoles": {
+    "/api/Identities/GetUserRoles": {
+      "get": {
+        "tags": [
+          "Identities"
+        ],
+        "operationId": "GetRolesByUserId",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Identities/GetAllRoles": {
       "get": {
         "tags": [
           "Identities"
@@ -982,21 +1092,92 @@
   },
   "components": {
     "schemas": {
+      "PaginatedListOfEmpleadoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmpleadoDto"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EmpleadoDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rutNormalized": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "mutualidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "estamento": {
+            "type": "string",
+            "nullable": true
+          },
+          "establecimiento": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "CreateEmpleadoCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "rut": {
-            "type": "string",
-            "nullable": true
-          },
-          "digito": {
-            "type": "string",
-            "nullable": true
-          },
-          "rutNormalized": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "firstName": {
             "type": "string",
@@ -1007,8 +1188,7 @@
             "nullable": true
           },
           "email": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "phoneNumber": {
             "type": "integer",
@@ -1029,6 +1209,18 @@
           "imageUrl": {
             "type": "string",
             "nullable": true
+          },
+          "mutualidadId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estamentoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "establecimientoId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
