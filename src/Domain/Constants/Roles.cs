@@ -3,4 +3,6 @@
 public abstract class Roles
 {
     public const string Administrator = nameof(Administrator);
+    public const string Jefatura = nameof(Jefatura);
+    public const string Empleado = nameof(Empleado);
 }

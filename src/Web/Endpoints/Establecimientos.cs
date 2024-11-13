@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.DeleteEstablishment;
-using Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.EditEstablishment;
+using WebApiAlertaMinsal.Application.Establecimientos.Commands.DeleteEstablishment;
+using WebApiAlertaMinsal.Application.Establecimientos.Commands.EditEstablishment;
 using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentById;
 using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentLookupData;
 using WebApiAlertaMinsal.Application.Common.Models;

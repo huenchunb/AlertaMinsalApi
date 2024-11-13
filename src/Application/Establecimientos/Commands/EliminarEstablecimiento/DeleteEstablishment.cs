@@ -1,6 +1,4 @@
-using WebApiAlertaMinsal.Application.Common.Interfaces;
-
-namespace Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.DeleteEstablishment;
+namespace WebApiAlertaMinsal.Application.Establecimientos.Commands.DeleteEstablishment;
 
 public record DeleteEstablishmentCommand(int Id) : IRequest;
 

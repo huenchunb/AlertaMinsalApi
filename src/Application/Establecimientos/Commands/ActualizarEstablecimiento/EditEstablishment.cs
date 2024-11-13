@@ -1,7 +1,4 @@
-using WebApiAlertaMinsal.Application.Common.Interfaces;
-using WebApiAlertaMinsal.Domain.Entities;
-
-namespace Microsoft.Extensions.DependencyInjection.Establecimientos.Commands.EditEstablishment;
+namespace WebApiAlertaMinsal.Application.Establecimientos.Commands.EditEstablishment;
 
 public record EditEstablishmentCommand(
     int Id,

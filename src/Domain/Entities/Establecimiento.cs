@@ -21,4 +21,5 @@ public class Establecimiento : BaseAuditableEntity
     public virtual ComplejidadEstablecimiento ComplejidadEstablecimiento { get; set; } = null!;
     public virtual TipoAtencionEstablecimiento TipoAtencionEstablecimiento { get; set; } = null!;
     public virtual Comuna Comuna { get; set; } = null!;
+    public virtual ICollection<Empleado> Empleados { get; set; } = [];
 }

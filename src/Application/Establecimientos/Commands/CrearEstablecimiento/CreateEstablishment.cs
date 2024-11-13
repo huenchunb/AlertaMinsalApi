@@ -1,5 +1,4 @@
 using WebApiAlertaMinsal.Application.Common.Interfaces;
-using WebApiAlertaMinsal.Application.Common.Models;
 using WebApiAlertaMinsal.Application.Common.Security;
 using WebApiAlertaMinsal.Domain.Entities;
 

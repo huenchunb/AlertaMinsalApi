@@ -11,7 +11,8 @@ public class TipoUrgenciaEstablecimientoConfiguration : IEntityTypeConfiguration
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd();
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
         builder.Property(e => e.Name)
             .HasMaxLength(100)
