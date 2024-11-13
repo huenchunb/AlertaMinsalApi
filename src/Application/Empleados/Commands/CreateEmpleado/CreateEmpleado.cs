@@ -21,6 +21,7 @@ public class CreateEmpleadoCommand : IRequest
     public int MutualidadId { get; init; }
     public int EstamentoId { get; init; }
     public int EstablecimientoId { get; init; }
+    public string Role { get; set; } = string.Empty;
 
     private class Mapping : Profile
     {
@@ -48,9 +49,12 @@ public class CreatEmpleadoCommandHandler(
         empleado.RutNormalized = request.Rut!.ToUpper();
         empleado.FullName = $"{empleado.FirstName} {empleado.LastName}";
 
+        var role = await identityService.GetRoleByIdAsync(request.Role) ??
+                   throw new BadRequestException(((int)EnumCodeErrors.RolNoEncontrado).ToString());
+
         (Result result, string userId) =
             await identityService.CreateUserAsync(empleado.Email,
-                $"{rut.GetRutWithoutDv()}", Roles.Jefatura);
+                $"{rut.GetRutWithoutDv()}", role);
 
         if (!result.Succeeded) throw new BadRequestException(((int)EnumCodeErrors.UsuarioRegistrado).ToString());
 

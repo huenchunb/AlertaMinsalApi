@@ -17,4 +17,6 @@ public interface IIdentityService
     Task<List<RolDto>> GetRolesAsync(CancellationToken cancellationToken);
 
     Task<List<string>> GetUserRolesAsync(string userId);
+    
+    Task<string?> GetRoleByIdAsync(string roleId);
 }

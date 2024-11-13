@@ -3,7 +3,9 @@ using WebApiAlertaMinsal.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApiAlertaMinsal.Application.Common.Exceptions;
 using WebApiAlertaMinsal.Domain.Constants;
+using WebApiAlertaMinsal.Domain.Enums;
 
 namespace WebApiAlertaMinsal.Infrastructure.Identity;
 
@@ -89,5 +91,12 @@ public class IdentityService(
         var roles = await userManager.GetRolesAsync(user);
 
         return roles.ToList();
+    }
+
+    public async Task<string?> GetRoleByIdAsync(string roleId)
+    {
+        var role = await roleManager.FindByIdAsync(roleId);
+
+        return role?.Name;
     }
 }

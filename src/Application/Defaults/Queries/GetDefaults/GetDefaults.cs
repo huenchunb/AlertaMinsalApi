@@ -6,11 +6,12 @@ public class GetDefaultsResponseDto
     public List<LookupDto> Estamentos { get; set; } = [];
     public List<LookupDto> Mutualidades { get; set; } = [];
     public List<LookupDto> Comunas { get; set; } = [];
+    public List<RolDto> Roles { get; set; } = [];
 }
 
 public record GetDefaultsQuery : IRequest<GetDefaultsResponseDto>;
 
-public class GetDefaultsQueryHandler(IApplicationDbContext context, IMapper mapper)
+public class GetDefaultsQueryHandler(IApplicationDbContext context, IIdentityService identityService, IMapper mapper)
     : IRequestHandler<GetDefaultsQuery, GetDefaultsResponseDto>
 {
     public async Task<GetDefaultsResponseDto> Handle(GetDefaultsQuery request, CancellationToken cancellationToken)
@@ -31,12 +32,15 @@ public class GetDefaultsQueryHandler(IApplicationDbContext context, IMapper mapp
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
+        var roles = await identityService.GetRolesAsync(cancellationToken);
+
         return new GetDefaultsResponseDto
         {
             Establecimientos = establecimientos,
             Estamentos = estamentos,
             Mutualidades = mutualidades,
-            Comunas = comunas
+            Comunas = comunas,
+            Roles = roles
         };
     }
 }
