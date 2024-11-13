@@ -1,6 +1,4 @@
-﻿using WebApiAlertaMinsal.Domain.Entities;
-
-namespace WebApiAlertaMinsal.Application.Common.Models;
+﻿namespace WebApiAlertaMinsal.Application.Common.Models;
 
 public class LookupDto
 {
@@ -19,6 +17,10 @@ public class LookupDto
             CreateMap<TipoAtencionEstablecimiento, LookupDto>();
             CreateMap<TipoEstablecimiento, LookupDto>();
             CreateMap<TipoUrgenciaEstablecimiento, LookupDto>();
+            CreateMap<Establecimiento, LookupDto>();
+            CreateMap<Estamento, LookupDto>();
+            CreateMap<Mutualidad, LookupDto>();
+            CreateMap<Comuna, LookupDto>();
         }
     }
 }

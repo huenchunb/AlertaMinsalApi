@@ -6,6 +6,26 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Defaults": {
+      "get": {
+        "tags": [
+          "Defaults"
+        ],
+        "operationId": "GetDefaults",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDefaultsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Empleados": {
       "get": {
         "tags": [
@@ -1092,6 +1112,50 @@
   },
   "components": {
     "schemas": {
+      "GetDefaultsResponseDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "establecimientos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "estamentos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "mutualidades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "comunas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          }
+        }
+      },
+      "LookupDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "PaginatedListOfEmpleadoDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1257,20 +1321,6 @@
             "items": {
               "$ref": "#/components/schemas/LookupDto"
             }
-          }
-        }
-      },
-      "LookupDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
           }
         }
       },

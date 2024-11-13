@@ -6,34 +6,30 @@ namespace WebApiAlertaMinsal.Web.Infrastructure;
 
 public class CustomExceptionHandler : IExceptionHandler
 {
-    private readonly Dictionary<Type, Func<HttpContext, Exception, Task>> _exceptionHandlers;
-
-    public CustomExceptionHandler()
+    private readonly Dictionary<Type, Func<HttpContext, Exception, Task>> _exceptionHandlers = new()
     {
-        // Register known exception types and handlers.
-        _exceptionHandlers = new Dictionary<Type, Func<HttpContext, Exception, Task>>
-        {
-                { typeof(ValidationException), HandleValidationException },
-                { typeof(NotFoundException), HandleNotFoundException },
-                { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
-                { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
-            };
-    }
+        { typeof(ValidationException), HandleValidationException },
+        { typeof(NotFoundException), HandleNotFoundException },
+        { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
+        { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
+        { typeof(BadRequestException), HandleBadRequestException }
+    };
 
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         var exceptionType = exception.GetType();
 
-        if (_exceptionHandlers.ContainsKey(exceptionType))
+        if (!_exceptionHandlers.TryGetValue(exceptionType, out Func<HttpContext, Exception, Task>? value))
         {
-            await _exceptionHandlers[exceptionType].Invoke(httpContext, exception);
-            return true;
+            return false;
         }
 
-        return false;
+        await value.Invoke(httpContext, exception);
+        return true;
+
     }
 
-    private async Task HandleValidationException(HttpContext httpContext, Exception ex)
+    private static async Task HandleValidationException(HttpContext httpContext, Exception ex)
     {
         var exception = (ValidationException)ex;
 
@@ -46,7 +42,7 @@ public class CustomExceptionHandler : IExceptionHandler
         });
     }
 
-    private async Task HandleNotFoundException(HttpContext httpContext, Exception ex)
+    private static async Task HandleNotFoundException(HttpContext httpContext, Exception ex)
     {
         var exception = (NotFoundException)ex;
 
@@ -61,7 +57,7 @@ public class CustomExceptionHandler : IExceptionHandler
         });
     }
 
-    private async Task HandleUnauthorizedAccessException(HttpContext httpContext, Exception ex)
+    private static async Task HandleUnauthorizedAccessException(HttpContext httpContext, Exception ex)
     {
         httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
@@ -73,7 +69,7 @@ public class CustomExceptionHandler : IExceptionHandler
         });
     }
 
-    private async Task HandleForbiddenAccessException(HttpContext httpContext, Exception ex)
+    private static async Task HandleForbiddenAccessException(HttpContext httpContext, Exception ex)
     {
         httpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
 
@@ -82,6 +78,17 @@ public class CustomExceptionHandler : IExceptionHandler
             Status = StatusCodes.Status403Forbidden,
             Title = "Forbidden",
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3"
+        });
+    }
+    
+    private static async Task HandleBadRequestException(HttpContext httpContext, Exception ex)
+    {
+        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Bad Request",
+            Detail = ex.Message
         });
     }
 }
