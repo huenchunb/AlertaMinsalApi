@@ -4,14 +4,15 @@ using WebApiAlertaMinsal.Domain.Entities;
 
 namespace WebApiAlertaMinsal.Infrastructure.Data.Configurations;
 
-public class ComunaConfiguration : IEntityTypeConfiguration<Comuna>
+public class TipoAgresorConfiguration : IEntityTypeConfiguration<TipoAgresor>
 {
-    public void Configure(EntityTypeBuilder<Comuna> builder)
+    public void Configure(EntityTypeBuilder<TipoAgresor> builder)
     {
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
         builder.Property(e => e.Created)
             .IsRequired()
@@ -34,22 +35,9 @@ public class ComunaConfiguration : IEntityTypeConfiguration<Comuna>
         builder.HasIndex(e => e.Name)
             .IsUnique();
 
-        builder.Property(e => e.IdRegion)
-            .IsRequired();
-
-        builder.HasMany(e => e.Establecimientos)
-            .WithOne(e => e.Comuna)
-            .HasForeignKey(e => e.ComunaId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasMany(e => e.Agresores)
-            .WithOne(e => e.Comuna)
-            .HasForeignKey(e => e.ComunaId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(e => e.Empleados)
-            .WithOne(e => e.Comuna)
-            .HasForeignKey(e => e.ComunaId)
+            .WithOne(e => e.TipoAgresor)
+            .HasForeignKey(e => e.TipoAgresorId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

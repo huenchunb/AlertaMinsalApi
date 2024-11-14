@@ -14,6 +14,20 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
             .ValueGeneratedOnAdd()
             .UseIdentityColumn();
 
+        builder.Property(e => e.Created)
+            .IsRequired()
+            .HasDefaultValue(DateTimeOffset.Now);
+
+        builder.Property(e => e.CreatedBy)
+            .IsRequired(false);
+
+        builder.Property(e => e.LastModified)
+            .IsRequired()
+            .HasDefaultValue(DateTimeOffset.Now);
+
+        builder.Property(e => e.LastModifiedBy)
+            .IsRequired(false);
+
         builder.Property(e => e.Rut)
             .HasMaxLength(8)
             .IsRequired();
@@ -83,5 +97,10 @@ public class EmpleadoConfiguration : IEntityTypeConfiguration<Empleado>
 
         builder.Property(e => e.EstablecimientoId)
             .IsRequired();
+
+        builder.HasMany(e => e.Agresiones)
+            .WithOne(e => e.Empleado)
+            .HasForeignKey(e => e.EmpleadoId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
