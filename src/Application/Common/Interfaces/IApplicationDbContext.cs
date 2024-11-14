@@ -5,6 +5,11 @@ namespace WebApiAlertaMinsal.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
+    DbSet<Agresion> Agresiones { get; }
+    DbSet<AgresionCategoria> AgresionesCategorias { get; }
+    DbSet<AgresionTestigo> AgresionesTestigos { get; }
+    DbSet<Agresor> Agresores { get; }
+    DbSet<CategoriaAgresion> TipoAgresionCategorias { get; }
     DbSet<ComplejidadEstablecimiento> Complejidades { get; }
     DbSet<Comuna> Comunas { get; }
     DbSet<Empleado> Empleados { get; }
@@ -13,6 +18,9 @@ public interface IApplicationDbContext
     DbSet<Mutualidad> Mutualidades { get; }
     DbSet<NivelEstablecimiento> Niveles { get; }
     DbSet<Region> Regiones { get; }
+    DbSet<Testigo> Testigos { get; }
+    DbSet<TipoAgresion> TiposAgresiones { get; }
+    DbSet<TipoAgresor> TiposAgresores { get; }
     DbSet<TipoAtencionEstablecimiento> TiposAtenciones { get; }
     DbSet<TipoEstablecimiento> TiposEstablecimientos { get; }
     DbSet<TipoUrgenciaEstablecimiento> TiposUrgencias { get; }
