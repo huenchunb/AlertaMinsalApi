@@ -1,6 +1,6 @@
 namespace WebApiAlertaMinsal.Domain.Entities;
 
-public class AgresionTestigo : BaseAuditableEntity
+public class AgresionTestigo
 {
     public int AgresionId { get; set; }
     public int TestigoId { get; set; }

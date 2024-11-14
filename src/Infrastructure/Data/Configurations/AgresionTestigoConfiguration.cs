@@ -8,30 +8,10 @@ public class AgresionTestigoConfiguration : IEntityTypeConfiguration<AgresionTes
 {
     public void Configure(EntityTypeBuilder<AgresionTestigo> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.HasKey(e => new { e.AgresionId, e.TestigoId });
 
-        builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd()
-            .UseIdentityColumn();
-        
-        builder.Property(e => e.Created)
-            .IsRequired()
-            .HasDefaultValue(DateTimeOffset.Now);
+        builder.Property(e => e.AgresionId).IsRequired();
 
-        builder.Property(e => e.CreatedBy)
-            .IsRequired(false);
-
-        builder.Property(e => e.LastModified)
-            .IsRequired()
-            .HasDefaultValue(DateTimeOffset.Now);
-
-        builder.Property(e => e.LastModifiedBy)
-            .IsRequired(false);
-
-        builder.Property(e => e.AgresionId)
-            .IsRequired();
-
-        builder.Property(e => e.TestigoId)
-            .IsRequired();
+        builder.Property(e => e.TestigoId).IsRequired();
     }
 }

@@ -34,5 +34,10 @@ public class CategoriaAgresionConfiguration : IEntityTypeConfiguration<Categoria
 
         builder.Property(e => e.TipoAgresionId)
             .IsRequired();
+
+        builder.HasMany(e => e.TipoAgresionCategorias)
+            .WithOne(e => e.CategoriaAgresion)
+            .HasForeignKey(e => e.CategoriaAgresionId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
