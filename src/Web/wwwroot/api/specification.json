@@ -1140,6 +1140,24 @@
               "$ref": "#/components/schemas/LookupDto"
             }
           },
+          "tipoAgresores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "tipoAgresiones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "tipoAgresionesCategorias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TipoAgresionCategoriaDto"
+            }
+          },
           "roles": {
             "type": "array",
             "items": {
@@ -1159,6 +1177,23 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "TipoAgresionCategoriaDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tipoAgresionId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

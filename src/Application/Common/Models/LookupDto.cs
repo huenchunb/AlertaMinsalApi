@@ -21,6 +21,9 @@ public class LookupDto
             CreateMap<Estamento, LookupDto>();
             CreateMap<Mutualidad, LookupDto>();
             CreateMap<Comuna, LookupDto>();
+            CreateMap<TipoAgresion, LookupDto>();
+            CreateMap<TipoAgresor, LookupDto>();
+            CreateMap<CategoriaAgresion, LookupDto>();
         }
     }
 }
