@@ -44,6 +44,19 @@
         }
       }
     },
+    "/api/Agresiones/GetAgresionesCountByCategories": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgresionesCountByCategories",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Defaults": {
       "get": {
         "tags": [

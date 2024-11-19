@@ -37,18 +37,7 @@ public class GetAgresionesGeoLocationQueryHandler(IApplicationDbContext context)
                 TotalAgresionesFisicas = g.Sum(x => x.e.TipoAgresionId == 1 ? 1 : 0),
                 TotalAgresionesVerbales = g.Sum(x => x.e.TipoAgresionId == 2 ? 1 : 0)
             };
-
-        var queryGeneral = await (from ca in context.CategoriaAgresion
-            join ac in context.AgresionCategoria on ca.Id equals ac.CategoriaAgresionId
-            group ac by new { ca.Id, ca.Name } into g
-            select new
-            {
-                CategoriaAgresionId = g.Key.Id,
-                CategoriaAgresionName = g.Key.Name,
-                TotalAgresiones = g.Count()
-            }).ToListAsync(cancellationToken);
         
-
         return await query.ToListAsync(cancellationToken);
     }
 }

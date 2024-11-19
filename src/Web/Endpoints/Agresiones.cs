@@ -1,4 +1,5 @@
 using WebApiAlertaMinsal.Application.Agresiones.Commands.CreateAgresion;
+using WebApiAlertaMinsal.Application.Agresiones.Queries.GetAgresionesCountByCategories;
 using WebApiAlertaMinsal.Application.Agresiones.Queries.GetAgresionesGeoLocation;
 
 namespace WebApiAlertaMinsal.Web.Endpoints;
@@ -9,7 +10,8 @@ public class Agresiones : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapPost(CreateAgresion)
-            .MapGet(GetAgresionesGeoLocation, "GetAgresionesGeoLocation");
+            .MapGet(GetAgresionesGeoLocation, "GetAgresionesGeoLocation")
+            .MapGet(GetAgresionesCountByCategories, "GetAgresionesCountByCategories");
     }
 
     private static async Task<IResult> CreateAgresion(ISender sender, CreateAgresionCommand command)
@@ -21,6 +23,12 @@ public class Agresiones : EndpointGroupBase
     private static async Task<IResult> GetAgresionesGeoLocation(ISender sender)
     {
         var response = await sender.Send(new GetAgresionesGeoLocationQuery());
+        return Results.Ok(response);
+    }
+
+    private static async Task<IResult> GetAgresionesCountByCategories(ISender sender)
+    {
+        var response = await sender.Send(new GetAgresionesCountByCategoriesQuery());
         return Results.Ok(response);
     }
 }
