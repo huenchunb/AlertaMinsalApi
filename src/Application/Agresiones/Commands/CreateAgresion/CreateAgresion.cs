@@ -1,4 +1,3 @@
-using WebApiAlertaMinsal.Application.Agresiones.Dtos;
 using WebApiAlertaMinsal.Application.Common.Security;
 using WebApiAlertaMinsal.Domain.Constants;
 

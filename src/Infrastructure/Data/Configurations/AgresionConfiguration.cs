@@ -35,6 +35,10 @@ public class AgresionConfiguration : IEntityTypeConfiguration<Agresion>
         builder.Property(e => e.EmpleadoId)
             .IsRequired();
 
+        builder.Property(e => e.EstadoAgresionId)
+            .IsRequired()
+            .HasDefaultValue(1);
+
         builder.HasMany(e => e.AgresionTestigos)
             .WithOne(e => e.Agresion)
             .HasForeignKey(e => e.AgresionId)
