@@ -24,6 +24,8 @@ public class LookupDto
             CreateMap<TipoAgresion, LookupDto>();
             CreateMap<TipoAgresor, LookupDto>();
             CreateMap<CategoriaAgresion, LookupDto>();
+            CreateMap<Empleado, LookupDto>()
+                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.FullName));
         }
     }
 }

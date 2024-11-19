@@ -44,5 +44,10 @@ public class AgresionConfiguration : IEntityTypeConfiguration<Agresion>
             .WithOne(e => e.Agresion)
             .HasForeignKey(e => e.AgresionId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(e => e.Agresores)
+            .WithOne(e => e.Agresion)
+            .HasForeignKey(e => e.AgresionId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

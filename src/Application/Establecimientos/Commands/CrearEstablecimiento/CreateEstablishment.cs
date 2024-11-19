@@ -44,7 +44,7 @@ public class CreateEstablishmentCommandHandler(IApplicationDbContext context)
             ComunaId = request.ComunaId
         };
 
-        await context.Establecimientos.AddAsync(entity, cancellationToken);
+        await context.Establecimiento.AddAsync(entity, cancellationToken);
 
         await context.SaveChangesAsync(cancellationToken);
 

@@ -16,27 +16,27 @@ public class
     public async Task<LookupEstablishmentDependenciesDto> Handle(GetEstablishmentLookupDataQuery request,
         CancellationToken cancellationToken)
     {
-        var establishmentComplexity = await context.Complejidades
+        var establishmentComplexity = await context.ComplejidadEstablecimiento
             .AsNoTracking()
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        var establishmentLevel = await context.Niveles
+        var establishmentLevel = await context.NivelEstablecimiento
             .AsNoTracking()
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        var establishmentAtentionType = await context.TiposAtenciones
+        var establishmentAtentionType = await context.TipoAtencionEstablecimiento
             .AsNoTracking()
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        var establishmentType = await context.TiposEstablecimientos
+        var establishmentType = await context.TipoEstablecimiento
             .AsNoTracking()
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        var establishmentUgencyType = await context.TiposUrgencias
+        var establishmentUgencyType = await context.TipoUrgenciaEstablecimiento
             .AsNoTracking()
             .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);

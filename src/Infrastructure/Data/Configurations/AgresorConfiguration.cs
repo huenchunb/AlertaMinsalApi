@@ -28,29 +28,41 @@ public class AgresorConfiguration : IEntityTypeConfiguration<Agresor>
         builder.Property(e => e.LastModifiedBy)
             .IsRequired(false);
 
+        builder.Property(e => e.AgresionId)
+            .IsRequired();
+
         builder.Property(e => e.Name)
-            .IsRequired(false);
+            .HasMaxLength(100)
+            .IsRequired();
 
         builder.Property(e => e.LastName)
-            .IsRequired(false);
+            .HasMaxLength(100)
+            .IsRequired();
 
         builder.Property(e => e.FullName)
-            .IsRequired(false);
+            .HasMaxLength(200)
+            .IsRequired();
 
         builder.Property(e => e.Rut)
-            .IsRequired(false);
+            .HasMaxLength(8)
+            .IsRequired();
 
         builder.Property(e => e.Digito)
-            .IsRequired(false);
+            .HasMaxLength(1)
+            .IsRequired();
 
         builder.Property(e => e.RutNormalized)
-            .IsRequired(false);
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.HasIndex(e => e.RutNormalized)
+            .IsUnique();
 
         builder.Property(e => e.Direccion)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.Property(e => e.ComunaId)
-            .IsRequired(false);
+            .IsRequired();
 
         builder.Property(e => e.TipoAgresorId)
             .IsRequired();

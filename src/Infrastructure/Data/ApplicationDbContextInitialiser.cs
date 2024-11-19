@@ -64,7 +64,7 @@ public class ApplicationDbContextInitialiser(
         {
             await roleManager.CreateAsync(administratorRole);
         }
-        
+
         // Default roles
         var jefaturaRole = new IdentityRole(Roles.Jefatura);
 
@@ -72,7 +72,7 @@ public class ApplicationDbContextInitialiser(
         {
             await roleManager.CreateAsync(jefaturaRole);
         }
-        
+
         var empleadoRole = new IdentityRole(Roles.Empleado);
 
         if (roleManager.Roles.All(r => r.Name != empleadoRole.Name))
@@ -91,86 +91,6 @@ public class ApplicationDbContextInitialiser(
             {
                 await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
-        }
-
-        // Default data
-        // Seed, if necessary
-        if (!context.TodoLists.Any())
-        {
-            context.TodoLists.Add(new TodoList
-            {
-                Title = "Todo List",
-                Items =
-                {
-                    new TodoItem { Title = "Make a todo list 📃" },
-                    new TodoItem { Title = "Check off the first item ✅" },
-                    new TodoItem { Title = "Realise you've already done two things on the list! 🤯" },
-                    new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
-                }
-            });
-
-            await context.SaveChangesAsync();
-        }
-
-        if (!context.Niveles.Any())
-        {
-            await context.Niveles.AddRangeAsync(new List<NivelEstablecimiento>
-            {
-                new("Primario"), new("Secundario"), new("Terciario")
-            });
-
-            await context.SaveChangesAsync();
-        }
-
-        if (!context.Complejidades.Any())
-        {
-            await context.Complejidades.AddRangeAsync(new List<ComplejidadEstablecimiento>
-            {
-                new("Baja complejidad"), new("Mediana complejidad"), new("Alta complejidad")
-            });
-
-            await context.SaveChangesAsync();
-        }
-
-        if (!context.TiposAtenciones.Any())
-        {
-            await context.TiposAtenciones.AddRangeAsync(new List<TipoAtencionEstablecimiento>
-            {
-                new("Atención abierta-ambulatoria"), new("Atención cerrada-hospitalaria")
-            });
-
-            await context.SaveChangesAsync();
-        }
-
-        if (!context.TiposEstablecimientos.Any())
-        {
-            await context.TiposEstablecimientos.AddRangeAsync(new List<TipoEstablecimiento>
-            {
-                new("Servicio de atención primaria de urgencia (SAPU)"),
-                new("Centro de salud familiar (CESFAM)"),
-                new("Centro comunitario de salud familiar (CECOSF)"),
-                new("Centro comunatario de salud mental (COSAM)"),
-                new("Centro de especialidad"),
-                new("Dirección servicio de salud"),
-                new("Hospital"),
-                new("Programa de reparación y atención integral de salud (PRAIS)"),
-                new("Unidad de salud funcionarios")
-            });
-
-            await context.SaveChangesAsync();
-        }
-
-        if (!context.TiposUrgencias.Any())
-        {
-            await context.TiposUrgencias.AddRangeAsync(new List<TipoUrgenciaEstablecimiento>
-            {
-                new("No aplica"),
-                new("Urgencia hospitalaria (UEH)"),
-                new("Hospitalaria especializada"),
-                new("Urgencia ambulatoria (SAPU)")
-            });
-
-            await context.SaveChangesAsync();
         }
     }
 }

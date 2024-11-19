@@ -16,7 +16,7 @@ public class GetTodoItemsWithPaginationQueryHandler(IApplicationDbContext contex
 {
     public async Task<PaginatedList<TodoItemBriefDto>> Handle(GetTodoItemsWithPaginationQuery request, CancellationToken cancellationToken)
     {
-        return await context.TodoItems
+        return await context.TodoItem
             .Where(x => x.ListId == request.ListId)
             .OrderBy(x => x.Title)
             .ProjectTo<TodoItemBriefDto>(mapper.ConfigurationProvider)

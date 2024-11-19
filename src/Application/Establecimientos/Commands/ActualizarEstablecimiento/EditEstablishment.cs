@@ -42,7 +42,7 @@ public class EditEstablishmentCommandHandler(IApplicationDbContext context)
                 ComunaId = request.ComunaId
             };
 
-            context.Establecimientos.Attach(establishment);
+            context.Establecimiento.Attach(establishment);
             context.Entry(establishment).State = EntityState.Modified;
 
             await context.SaveChangesAsync(cancellationToken);

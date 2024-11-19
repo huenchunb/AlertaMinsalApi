@@ -7,13 +7,13 @@ public class DeleteEstablishmentCommandHandler(IApplicationDbContext context)
 {
     public async Task Handle(DeleteEstablishmentCommand request, CancellationToken cancellationToken)
     {
-        var entity = await context.Establecimientos
+        var entity = await context.Establecimiento
             .Where(l => l.Id == request.Id)
             .SingleOrDefaultAsync(cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
 
-        context.Establecimientos.Remove(entity);
+        context.Establecimiento.Remove(entity);
 
         await context.SaveChangesAsync(cancellationToken);
     }

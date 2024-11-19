@@ -6,6 +6,44 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Agresiones": {
+      "post": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "CreateAgresion",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAgresionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/GetAgresionesGeoLocation": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgresionesGeoLocation",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Defaults": {
       "get": {
         "tags": [
@@ -1112,6 +1150,87 @@
   },
   "components": {
     "schemas": {
+      "CreateAgresionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fechaAgresion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "empleadoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoriasAgresionesId": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "agresores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgresorCreateDto"
+            }
+          },
+          "testigos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestigoCreateDto"
+            }
+          }
+        }
+      },
+      "AgresorCreateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipoAgresorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rut": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TestigoCreateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rut": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "GetDefaultsResponseDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1152,6 +1271,12 @@
               "$ref": "#/components/schemas/LookupDto"
             }
           },
+          "empleados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmpleadoDefaultDto"
+            }
+          },
           "tipoAgresionesCategorias": {
             "type": "array",
             "items": {
@@ -1177,6 +1302,23 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "EmpleadoDefaultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "establecimientoId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

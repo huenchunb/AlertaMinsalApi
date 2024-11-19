@@ -52,6 +52,9 @@ public class TestigoConfiguration : IEntityTypeConfiguration<Testigo>
             .HasMaxLength(50)
             .IsRequired();
 
+        builder.HasIndex(e => e.RutNormalized)
+            .IsUnique();
+
         builder.Property(e => e.Email)
             .HasMaxLength(254)
             .IsRequired();

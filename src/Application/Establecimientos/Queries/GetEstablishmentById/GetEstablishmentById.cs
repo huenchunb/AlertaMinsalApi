@@ -13,7 +13,7 @@ public class GetEstablishmentByIdQueryHandler(IApplicationDbContext context, IMa
 {
     public async Task<EstablishmentDto> Handle(GetEstablishmentByIdQuery request, CancellationToken cancellationToken)
     {
-        var establishment = await context.Establecimientos.FindAsync(new object?[] { request.Id, cancellationToken },
+        var establishment = await context.Establecimiento.FindAsync(new object?[] { request.Id, cancellationToken },
             cancellationToken: cancellationToken);
 
         Guard.Against.NotFound(request.Id, establishment);

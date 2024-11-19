@@ -17,7 +17,7 @@ public class GetEmpleadoWithPaginationQueryHandler(IApplicationDbContext context
     public async Task<PaginatedList<EmpleadoDto>> Handle(GetEmpleadoWithPaginationQuery request,
         CancellationToken _)
     {
-        return await context.Empleados
+        return await context.Empleado
             .OrderByDescending(x => x.Created)
             .ProjectTo<EmpleadoDto>(mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
