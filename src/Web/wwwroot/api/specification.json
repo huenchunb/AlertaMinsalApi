@@ -189,6 +189,88 @@
         ]
       }
     },
+    "/api/Establecimientos": {
+      "get": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "GetEstablecimientoWithPagination",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfEstablecimientoDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "CreateEstablishment",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEstablishmentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Establecimientos/dependencies": {
       "get": {
         "tags": [
@@ -238,7 +320,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EstablishmentDto"
+                  "$ref": "#/components/schemas/EstablecimientoDto"
                 }
               }
             }
@@ -310,43 +392,6 @@
         "responses": {
           "200": {
             "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/Establecimientos": {
-      "post": {
-        "tags": [
-          "Establecimientos"
-        ],
-        "operationId": "CreateEstablishment",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEstablishmentCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unit"
-                }
-              }
-            }
           }
         },
         "security": [
@@ -1423,6 +1468,14 @@
             "type": "string",
             "nullable": true
           },
+          "streetNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "comuna": {
+            "type": "string",
+            "nullable": true
+          },
           "region": {
             "type": "string",
             "nullable": true
@@ -1500,49 +1553,46 @@
           }
         }
       },
-      "LookupEstablishmentDependenciesDto": {
+      "PaginatedListOfEstablecimientoDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "establishmentComplexity": {
+          "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/LookupDto"
+              "$ref": "#/components/schemas/EstablecimientoDto"
             }
           },
-          "establishmentLevel": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentAtentionType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentUgencyType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
           }
         }
       },
-      "EstablishmentDto": {
+      "EstablecimientoDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "name": {
+            "type": "string"
           },
           "tipo": {
             "type": "string"
@@ -1582,6 +1632,45 @@
           },
           "comuna": {
             "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        }
+      },
+      "LookupEstablishmentDependenciesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "establishmentComplexity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentLevel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentAtentionType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentUgencyType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
           }
         }
       },

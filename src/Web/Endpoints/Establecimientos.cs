@@ -4,6 +4,8 @@ using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentBy
 using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentLookupData;
 using WebApiAlertaMinsal.Application.Common.Models;
 using WebApiAlertaMinsal.Application.Establecimientos.Commands.CreateEstablishment;
+using WebApiAlertaMinsal.Application.Establecimientos.Dtos;
+using WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablecimientos;
 
 namespace WebApiAlertaMinsal.Web.Endpoints;
 
@@ -13,6 +15,7 @@ public class Establecimientos : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
+            .MapGet(GetEstablecimientoWithPagination)
             .MapGet(GetEstablishmentDependencies, "/dependencies")
             .MapGet(GetEstablishmentById, "{id:int}")
             .MapPost(CreateEstablishment)
@@ -20,15 +23,21 @@ public class Establecimientos : EndpointGroupBase
             .MapDelete(DeleteEstablishment, "{id:int}");
     }
 
-    private static Task<LookupEstablishmentDependenciesDto> GetEstablishmentDependencies(ISender sender)
+    private async static Task<PaginatedList<EstablecimientoDto>> GetEstablecimientoWithPagination(ISender sender,
+        [AsParameters] GetEstablecimientosWithPaginationQuery query)
     {
-        return sender.Send(new GetEstablishmentLookupDataQuery());
+        return await sender.Send(query);
     }
 
-    private static Task<EstablishmentDto> GetEstablishmentById(ISender sender,
+    private async static Task<LookupEstablishmentDependenciesDto> GetEstablishmentDependencies(ISender sender)
+    {
+        return await sender.Send(new GetEstablishmentLookupDataQuery());
+    }
+
+    private async static Task<EstablecimientoDto> GetEstablishmentById(ISender sender,
         int id)
     {
-        return sender.Send(new GetEstablishmentByIdQuery(id));
+        return await sender.Send(new GetEstablishmentByIdQuery(id));
     }
 
     private async static Task<Unit> CreateEstablishment(ISender sender, CreateEstablishmentCommand command)

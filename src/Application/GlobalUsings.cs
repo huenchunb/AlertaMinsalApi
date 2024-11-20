@@ -8,3 +8,6 @@ global using WebApiAlertaMinsal.Domain.Entities;
 global using WebApiAlertaMinsal.Application.Common.Interfaces;
 global using WebApiAlertaMinsal.Application.Common.Models;
 global using WebApiAlertaMinsal.Application.Agresiones.Dtos;
+global using WebApiAlertaMinsal.Application.Common.Security;
+global using WebApiAlertaMinsal.Domain.Constants;
+global using WebApiAlertaMinsal.Application.Common.Mappings;
