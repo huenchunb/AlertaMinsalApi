@@ -6,6 +6,70 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Agresiones": {
+      "post": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "CreateAgresion",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAgresionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/GetAgresionesGeoLocation": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgresionesGeoLocation",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/GetAgresionesCountByCategories": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgresionesCountByCategories",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/GetAggressionSummaryByDate": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAggressionSummaryByDate",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Defaults": {
       "get": {
         "tags": [
@@ -138,6 +202,88 @@
         ]
       }
     },
+    "/api/Establecimientos": {
+      "get": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "GetEstablecimientoWithPagination",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfEstablecimientoDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Establecimientos"
+        ],
+        "operationId": "CreateEstablishment",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEstablishmentCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Establecimientos/dependencies": {
       "get": {
         "tags": [
@@ -187,7 +333,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EstablishmentDto"
+                  "$ref": "#/components/schemas/EstablecimientoDto"
                 }
               }
             }
@@ -259,43 +405,6 @@
         "responses": {
           "200": {
             "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/Establecimientos": {
-      "post": {
-        "tags": [
-          "Establecimientos"
-        ],
-        "operationId": "CreateEstablishment",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEstablishmentCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unit"
-                }
-              }
-            }
           }
         },
         "security": [
@@ -1112,6 +1221,87 @@
   },
   "components": {
     "schemas": {
+      "CreateAgresionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fechaAgresion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "empleadoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoriasAgresionesId": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "agresores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgresorCreateDto"
+            }
+          },
+          "testigos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TestigoCreateDto"
+            }
+          }
+        }
+      },
+      "AgresorCreateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "tipoAgresorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rut": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "comunaId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TestigoCreateDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rut": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "GetDefaultsResponseDto": {
         "type": "object",
         "additionalProperties": false,
@@ -1140,6 +1330,30 @@
               "$ref": "#/components/schemas/LookupDto"
             }
           },
+          "tipoAgresores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "tipoAgresiones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "empleados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmpleadoDefaultDto"
+            }
+          },
+          "tipoAgresionesCategorias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TipoAgresionCategoriaDto"
+            }
+          },
           "roles": {
             "type": "array",
             "items": {
@@ -1159,6 +1373,40 @@
           "name": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "EmpleadoDefaultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "establecimientoId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TipoAgresionCategoriaDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tipoAgresionId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -1230,6 +1478,14 @@
             "format": "int32"
           },
           "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "streetNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "comuna": {
             "type": "string",
             "nullable": true
           },
@@ -1310,49 +1566,46 @@
           }
         }
       },
-      "LookupEstablishmentDependenciesDto": {
+      "PaginatedListOfEstablecimientoDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "establishmentComplexity": {
+          "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/LookupDto"
+              "$ref": "#/components/schemas/EstablecimientoDto"
             }
           },
-          "establishmentLevel": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentAtentionType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
           },
-          "establishmentUgencyType": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LookupDto"
-            }
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
           }
         }
       },
-      "EstablishmentDto": {
+      "EstablecimientoDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "name": {
+            "type": "string"
           },
           "tipo": {
             "type": "string"
@@ -1392,6 +1645,45 @@
           },
           "comuna": {
             "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        }
+      },
+      "LookupEstablishmentDependenciesDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "establishmentComplexity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentLevel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentAtentionType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "establishmentUgencyType": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
           }
         }
       },

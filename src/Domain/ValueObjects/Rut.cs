@@ -1,25 +1,22 @@
 namespace WebApiAlertaMinsal.Domain.ValueObjects;
 
-public class Rut : ValueObject
+public class Rut(string value) : ValueObject
 {
-    public string Value { get; }
+    private string Value { get; } = value;
 
-    private Rut(string value)
+    public static Rut Create(string value)
     {
+        var rut = new Rut(value);
+
         if (!IsValid(value))
         {
             throw new UnsupportedRutException(value);
         }
 
-        Value = value;
+        return rut;
     }
 
-    public static Rut Create(string value)
-    {
-        return new Rut(value);
-    }
-
-    private static bool IsValid(string rut)
+    public static bool IsValid(string rut)
     {
         rut = rut.Replace(".", "").Replace("-", "");
 

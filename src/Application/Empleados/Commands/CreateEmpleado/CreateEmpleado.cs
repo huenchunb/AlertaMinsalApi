@@ -1,9 +1,3 @@
-using WebApiAlertaMinsal.Application.Common.Exceptions;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Constants;
-using WebApiAlertaMinsal.Domain.Enums;
-using WebApiAlertaMinsal.Domain.ValueObjects;
-
 namespace WebApiAlertaMinsal.Application.Empleados.Commands.CrearEmpleado;
 
 [Authorize(Roles = Roles.Administrator)]
@@ -59,7 +53,7 @@ public class CreatEmpleadoCommandHandler(
         if (!result.Succeeded) throw new BadRequestException(((int)EnumCodeErrors.UsuarioRegistrado).ToString());
 
         empleado.AccountId = userId;
-        await context.Empleados.AddAsync(empleado, cancellationToken);
+        await context.Empleado.AddAsync(empleado, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
     }
 }

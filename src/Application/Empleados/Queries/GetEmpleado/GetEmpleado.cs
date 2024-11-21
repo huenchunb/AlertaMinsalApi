@@ -7,7 +7,7 @@ public class GetEmpleadoQueryHandler(IApplicationDbContext context, IMapper mapp
 {
     public async Task<EmpleadoDto> Handle(GetEmpleadoQuery request, CancellationToken cancellationToken)
     {
-        var entity = await context.Empleados
+        var entity = await context.Empleado
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         Guard.Against.NotFound(request.Id!, entity);

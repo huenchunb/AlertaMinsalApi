@@ -9,4 +9,5 @@ public class Empleado : BasePersonEntity
     public virtual Mutualidad Mutualidad { get; set; } = null!;
     public virtual Estamento Estamento { get; set; } = null!;
     public virtual Establecimiento Establecimiento { get; set; } = null!;
+    public virtual ICollection<Agresion> Agresiones { get; set; } = [];
 }
