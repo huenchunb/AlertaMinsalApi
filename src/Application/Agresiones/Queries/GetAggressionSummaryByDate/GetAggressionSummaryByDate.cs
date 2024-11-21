@@ -8,22 +8,25 @@ public class GetAggressionSummaryByDateQueryHandler(IApplicationDbContext contex
     public async Task<List<AggressionSummaryByDateDto>> Handle(GetAggressionSummaryByDateQuery request,
         CancellationToken cancellationToken)
     {
-        var list = await (from a in context.Agresion
-                join ac in context.AgresionCategoria on a.Id equals ac.AgresionId
-                join ca in context.CategoriaAgresion on ac.CategoriaAgresionId equals ca.Id
-                group new { a, ca } by a.FechaAgresion.Date
-                into grouped
-                select new
-                {
-                    Date = grouped.Key,
-                    PhysicalAggressions = grouped.Count(g => g.ca.TipoAgresionId == 1),
-                    VerbalAggressions = grouped.Count(g => g.ca.TipoAgresionId == 2)
-                }
-                into resultGroup
-                orderby resultGroup.Date descending
-                select resultGroup)
+        var rawData = await (
+            from a in context.Agresion
+            join ac in context.AgresionCategoria on a.Id equals ac.AgresionId
+            join ca in context.CategoriaAgresion on ac.CategoriaAgresionId equals ca.Id
+            select new { a.FechaAgresion, ac.AgresionId, ca.TipoAgresionId }
+        ).Distinct().ToListAsync(cancellationToken);
+
+        var list = rawData
+            .GroupBy(x => x.FechaAgresion.Date)
+            .Select(group => new
+            {
+                Date = group.Key,
+                PhysicalAggressions =
+                    group.Where(g => g.TipoAgresionId == 1).Select(g => g.AgresionId).Distinct().Count(),
+                VerbalAggressions = group.Where(g => g.TipoAgresionId == 2).Select(g => g.AgresionId).Distinct()
+                    .Count()
+            })
             .OrderByDescending(x => x.Date)
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         var result = list.Select(dto => new AggressionSummaryByDateDto
             {
