@@ -4,12 +4,12 @@ public class Agresor : BaseAuditableEntity
 {
     public int AgresionId { get; set; }
     public int TipoAgresorId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string FullName { get; set; } = string.Empty;
-    public string Rut { get; set; } = string.Empty;
-    public string Digito { get; set; } = string.Empty;
-    public string RutNormalized { get; set; } = string.Empty;
+    public string? Name { get; set; }
+    public string? LastName { get; set; }
+    public string? FullName { get; set; }
+    public string? Rut { get; set; }
+    public string? Digito { get; set; }
+    public string? RutNormalized { get; set; }
     public string? Direccion { get; set; }
     public int? ComunaId { get; set; }
     public virtual TipoAgresor TipoAgresor { get; set; } = null!;

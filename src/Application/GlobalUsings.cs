@@ -11,3 +11,6 @@ global using WebApiAlertaMinsal.Application.Agresiones.Dtos;
 global using WebApiAlertaMinsal.Application.Common.Security;
 global using WebApiAlertaMinsal.Domain.Constants;
 global using WebApiAlertaMinsal.Application.Common.Mappings;
+global using WebApiAlertaMinsal.Application.Common.Exceptions;
+global using WebApiAlertaMinsal.Domain.Enums;
+global using WebApiAlertaMinsal.Domain.ValueObjects;

@@ -22,17 +22,17 @@ public class AgresorConfiguration : IEntityTypeConfiguration<Agresor>
 
         builder.Property(e => e.AgresionId).IsRequired();
 
-        builder.Property(e => e.Name).HasMaxLength(100).IsRequired();
+        builder.Property(e => e.Name).HasMaxLength(100).IsRequired(false);
 
-        builder.Property(e => e.LastName).HasMaxLength(100).IsRequired();
+        builder.Property(e => e.LastName).HasMaxLength(100).IsRequired(false);
 
-        builder.Property(e => e.FullName).HasMaxLength(200).IsRequired();
+        builder.Property(e => e.FullName).HasMaxLength(200).IsRequired(false);
 
-        builder.Property(e => e.Rut).HasMaxLength(8).IsRequired();
+        builder.Property(e => e.Rut).HasMaxLength(8).IsRequired(false);
 
-        builder.Property(e => e.Digito).HasMaxLength(1).IsRequired();
+        builder.Property(e => e.Digito).HasMaxLength(1).IsRequired(false);
 
-        builder.Property(e => e.RutNormalized).HasMaxLength(50).IsRequired();
+        builder.Property(e => e.RutNormalized).HasMaxLength(50).IsRequired(false);
 
         builder.Property(e => e.Direccion).IsRequired(false);
 

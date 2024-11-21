@@ -57,6 +57,19 @@
         }
       }
     },
+    "/api/Agresiones/GetAggressionSummaryByDate": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAggressionSummaryByDate",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/Defaults": {
       "get": {
         "tags": [

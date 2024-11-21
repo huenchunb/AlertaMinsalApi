@@ -1,6 +1,3 @@
-using WebApiAlertaMinsal.Application.Agresiones.Dtos;
-using WebApiAlertaMinsal.Domain.ValueObjects;
-
 namespace WebApiAlertaMinsal.Application.Agresiones.Commands.CreateAgresion;
 
 public class AgresorCreateDtoValidator : AbstractValidator<AgresorCreateDto>
@@ -17,10 +14,7 @@ public class AgresorCreateDtoValidator : AbstractValidator<AgresorCreateDto>
 
         RuleFor(a => a.Rut)
             .Must(Rut.IsValid)
-            .WithMessage("El RUT '{PropertyValue}' no es válido")
-            .MustAsync(BeUniqueRut)
-            .WithMessage("'{PropertyName}' ya se encuentra registrado.")
-            .WithErrorCode("Único");
+            .WithMessage("El RUT '{PropertyValue}' no es válido");
 
         RuleFor(a => a.Name)
             .NotEmpty()
@@ -40,11 +34,5 @@ public class AgresorCreateDtoValidator : AbstractValidator<AgresorCreateDto>
             .NotNull()
             .NotEmpty()
             .WithMessage("La campo comunaId no puede estar vacío");
-    }
-
-    private async Task<bool> BeUniqueRut(string rut, CancellationToken cancellationToken)
-    {
-        return await _context.Agresor
-            .AllAsync(l => l.RutNormalized != rut, cancellationToken);
     }
 }

@@ -1,9 +1,3 @@
-using WebApiAlertaMinsal.Application.Common.Exceptions;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Constants;
-using WebApiAlertaMinsal.Domain.Enums;
-using WebApiAlertaMinsal.Domain.ValueObjects;
-
 namespace WebApiAlertaMinsal.Application.Empleados.Commands.CrearEmpleado;
 
 [Authorize(Roles = Roles.Administrator)]
