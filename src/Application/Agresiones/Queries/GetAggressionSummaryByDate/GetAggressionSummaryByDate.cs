@@ -29,11 +29,11 @@ public class GetAggressionSummaryByDateQueryHandler(IApplicationDbContext contex
             .ToList();
 
         var result = list.Select(dto => new AggressionSummaryByDateDto
-            {
-                Date = dto.Date.ToString("yyyy-MM-dd"),
-                PhysicalAggressions = dto.PhysicalAggressions,
-                VerbalAggressions = dto.VerbalAggressions
-            })
+        {
+            Date = dto.Date.ToString("yyyy-MM-dd"),
+            PhysicalAggressions = dto.PhysicalAggressions,
+            VerbalAggressions = dto.VerbalAggressions
+        })
             .ToList();
 
         return result;
