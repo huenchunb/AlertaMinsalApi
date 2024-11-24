@@ -29,6 +29,76 @@
             "description": ""
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgressions",
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/{id}": {
+      "put": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "ApproveAggression",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveAggressionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
       }
     },
     "/api/Agresiones/GetAgresionesGeoLocation": {
@@ -37,6 +107,19 @@
           "Agresiones"
         ],
         "operationId": "GetAgresionesGeoLocation",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Agresiones/GetAggressionsSummary": {
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAggressionsSummary",
         "responses": {
           "200": {
             "description": ""
@@ -1301,6 +1384,16 @@
             "type": "string"
           },
           "phoneNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ApproveAggressionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
             "type": "integer",
             "format": "int32"
           }

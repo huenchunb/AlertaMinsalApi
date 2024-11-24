@@ -28,6 +28,7 @@ public class CreateAgresionCommandHandler(IApplicationDbContext context, IMapper
     public async Task Handle(CreateAgresionCommand request, CancellationToken cancellationToken)
     {
         var agresion = mapper.Map<Agresion>(request);
+        agresion.EstadoAgresionId = (int)EnumEstadoAgresion.Ingresada;
         var testigos = mapper.Map<List<Testigo>>(request.Testigos);
         var agresionCategorias = request.CategoriasAgresionesId.Select(categoriaId =>
             new AgresionCategoria { CategoriaAgresionId = categoriaId }).ToList();
