@@ -29,6 +29,17 @@
             "description": ""
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Agresiones"
+        ],
+        "operationId": "GetAgressions",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
       }
     },
     "/api/Agresiones/GetAgresionesGeoLocation": {
