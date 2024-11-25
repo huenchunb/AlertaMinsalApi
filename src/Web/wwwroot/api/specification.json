@@ -285,6 +285,42 @@
         ]
       }
     },
+    "/api/Empleados/email/{email}": {
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "operationId": "GetEmpleadoByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmpleadoDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Establecimientos": {
       "get": {
         "tags": [
