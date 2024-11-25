@@ -14,7 +14,8 @@ public class EmpleadoDto
     public string? ImageUrl { get; init; }
     public string? Mutualidad { get; init; }
     public string? Estamento { get; init; }
-    public string? Establecimiento { get; init; }
+    public string Establecimiento { get; init; } = string.Empty;
+    public int EstablecimientoId { get; init; }
 
     private class Mapping : Profile
     {

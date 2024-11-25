@@ -5,6 +5,7 @@ namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAggressions;
 [Authorize]
 public class GetAggressionQuery : IRequest<PaginatedList<AggressionDto>>
 {
+    public int? EstablecimientoId { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
 };
@@ -16,8 +17,15 @@ public record GetAggressionQueryHandler(IApplicationDbContext Context, IIdentity
         CancellationToken cancellationToken)
     {
         CultureInfo cultura = new CultureInfo("es-ES");
+
+        var query = Context.Agresion.AsQueryable();
+
+        if (request.EstablecimientoId != null)
+        {
+            query = query.Where(ag => ag.Empleado.Establecimiento.Id == request.EstablecimientoId);
+        }
         
-        var agresiones = await Context.Agresion
+        var agresiones = await query
             .Include(ag => ag.Empleado)
             .ThenInclude(em => em.Comuna)
             .ThenInclude(co => co.Region)
