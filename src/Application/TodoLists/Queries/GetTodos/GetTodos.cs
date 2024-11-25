@@ -1,9 +1,4 @@
-﻿using WebApiAlertaMinsal.Application.Common.Interfaces;
-using WebApiAlertaMinsal.Application.Common.Models;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Enums;
-
-namespace WebApiAlertaMinsal.Application.TodoLists.Queries.GetTodos;
+﻿namespace WebApiAlertaMinsal.Application.TodoLists.Queries.GetTodos;
 
 [Authorize]
 public record GetTodosQuery : IRequest<TodosVm>;

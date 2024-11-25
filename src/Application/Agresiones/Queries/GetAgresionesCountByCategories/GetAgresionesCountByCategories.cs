@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAgresionesCountByCategories;
 
+[Authorize]
 public record GetAgresionesCountByCategoriesQuery : IRequest<List<AgresionesCountByCategories>>;
 
 public class GetAgresionesCountByCategoriesQueryHandler(IApplicationDbContext context)

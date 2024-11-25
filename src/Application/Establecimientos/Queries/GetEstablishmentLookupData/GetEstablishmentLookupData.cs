@@ -1,11 +1,5 @@
-using WebApiAlertaMinsal.Application.Common.Interfaces;
-using WebApiAlertaMinsal.Application.Common.Models;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Constants;
-
 namespace WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentLookupData;
 
-[Authorize(Roles = Roles.Administrator)]
 public record GetEstablishmentLookupDataQuery : IRequest<LookupEstablishmentDependenciesDto>;
 
 public class

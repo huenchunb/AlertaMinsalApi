@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Empleados.Queries.GetEmpleado;
 
+[Authorize]
 public record GetEmpleadoQuery(int Id) : IRequest<EmpleadoDto>;
 
 public class GetEmpleadoQueryHandler(IApplicationDbContext context, IMapper mapper)

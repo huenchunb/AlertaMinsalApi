@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Establecimientos.Commands.EditEstablishment;
 
+[Authorize]
 public record EditEstablishmentCommand(
     int Id,
     string Name,

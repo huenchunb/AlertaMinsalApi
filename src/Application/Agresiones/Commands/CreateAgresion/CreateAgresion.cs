@@ -1,10 +1,6 @@
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Constants;
-
 namespace WebApiAlertaMinsal.Application.Agresiones.Commands.CreateAgresion;
 
-[Authorize(Roles = Roles.Jefatura)]
-[Authorize(Roles = Roles.Administrator)]
+[Authorize]
 public class CreateAgresionCommand : IRequest
 {
     public DateTime FechaAgresion { get; set; }

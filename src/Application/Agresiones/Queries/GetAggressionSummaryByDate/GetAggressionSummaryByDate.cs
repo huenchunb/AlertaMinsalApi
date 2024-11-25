@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAggressionSummaryByDate;
 
+[Authorize]
 public record GetAggressionSummaryByDateQuery : IRequest<List<AggressionSummaryByDateDto>>;
 
 public class GetAggressionSummaryByDateQueryHandler(IApplicationDbContext context)

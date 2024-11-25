@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Establecimientos.Commands.DeleteEstablishment;
 
+[Authorize]
 public record DeleteEstablishmentCommand(int Id) : IRequest;
 
 public class DeleteEstablishmentCommandHandler(IApplicationDbContext context)

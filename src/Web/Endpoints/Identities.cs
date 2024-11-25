@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection.Identities.Queries.GetRolesByUserId;
+using WebApiAlertaMinsal.Application.Identities.Queries.GetRolesByUserId;
 using WebApiAlertaMinsal.Application.Common.Models;
 using WebApiAlertaMinsal.Application.Identities.Queries.GetRoles;
 

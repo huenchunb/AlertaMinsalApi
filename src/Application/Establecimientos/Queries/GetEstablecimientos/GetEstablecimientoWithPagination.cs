@@ -2,7 +2,6 @@ using WebApiAlertaMinsal.Application.Establecimientos.Dtos;
 
 namespace WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablecimientos;
 
-[Authorize(Roles = Roles.Administrator)]
 public class GetEstablecimientosWithPaginationQuery : IRequest<PaginatedList<EstablecimientoDto>>
 {
     public int PageNumber { get; set; } = 1;
