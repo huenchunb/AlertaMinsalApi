@@ -18,7 +18,7 @@ public static class DependencyInjection
             options.AddPolicy("AllowLocalhost3000",
                 builder =>
                 {
-                    builder.WithOrigins("https://localhost:3000")
+                    builder.WithOrigins("https://localhost:3000", "https://alerta-minsal-front.vercel.app/")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
