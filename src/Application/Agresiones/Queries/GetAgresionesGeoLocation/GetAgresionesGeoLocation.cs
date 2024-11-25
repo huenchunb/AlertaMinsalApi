@@ -1,5 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAgresionesGeoLocation;
 
+[Authorize]
 public record GetAgresionesGeoLocationQuery : IRequest<List<AgresionGeoLocationDto>>;
 
 public class GetAgresionesGeoLocationQueryHandler(IApplicationDbContext context) :

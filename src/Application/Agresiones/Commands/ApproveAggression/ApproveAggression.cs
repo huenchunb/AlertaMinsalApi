@@ -1,5 +1,6 @@
 namespace Microsoft.Extensions.DependencyInjection.Agresiones.Commands.ApproveAggression;
 
+[Authorize]
 public record ApproveAggressionCommand(int Id) : IRequest<int>;
 
 public class ApproveAggressionCommandHandler(IApplicationDbContext Context)

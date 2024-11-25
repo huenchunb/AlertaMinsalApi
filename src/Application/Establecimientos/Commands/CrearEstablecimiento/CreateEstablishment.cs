@@ -1,7 +1,3 @@
-using WebApiAlertaMinsal.Application.Common.Interfaces;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Entities;
-
 namespace WebApiAlertaMinsal.Application.Establecimientos.Commands.CreateEstablishment;
 
 [Authorize]

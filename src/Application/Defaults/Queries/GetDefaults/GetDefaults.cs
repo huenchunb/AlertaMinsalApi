@@ -16,6 +16,7 @@ public class GetDefaultsResponseDto
     public List<RolDto> Roles { get; set; } = [];
 }
 
+[Authorize]
 public record GetDefaultsQuery : IRequest<GetDefaultsResponseDto>;
 
 public class GetDefaultsQueryHandler(IApplicationDbContext context, IIdentityService identityService, IMapper mapper)

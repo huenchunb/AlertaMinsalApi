@@ -1,6 +1,4 @@
-using WebApiAlertaMinsal.Application.Common.Security;
-
-namespace Microsoft.Extensions.DependencyInjection.Identities.Queries.GetRolesByUserId;
+namespace WebApiAlertaMinsal.Application.Identities.Queries.GetRolesByUserId;
 
 [Authorize]
 public record GetRolesByUserIdQuery : IRequest<List<string>>;

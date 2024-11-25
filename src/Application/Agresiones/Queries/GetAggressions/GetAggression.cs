@@ -2,6 +2,7 @@ using System.Globalization;
 
 namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAggressions;
 
+[Authorize]
 public class GetAggressionQuery : IRequest<PaginatedList<AggressionDto>>
 {
     public int PageNumber { get; set; } = 1;

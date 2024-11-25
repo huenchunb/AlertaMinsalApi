@@ -1,6 +1,6 @@
 namespace WebApiAlertaMinsal.Application.Empleados.Commands.CrearEmpleado;
 
-[Authorize(Roles = Roles.Administrator)]
+[Authorize]
 public class CreateEmpleadoCommand : IRequest
 {
     public string Rut { get; set; } = string.Empty;

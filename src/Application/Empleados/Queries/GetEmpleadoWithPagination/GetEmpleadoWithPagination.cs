@@ -1,10 +1,6 @@
-using WebApiAlertaMinsal.Application.Common.Mappings;
-using WebApiAlertaMinsal.Application.Common.Security;
-using WebApiAlertaMinsal.Domain.Constants;
-
 namespace WebApiAlertaMinsal.Application.Empleados.Queries.GetEmpleadoWithPagination;
 
-[Authorize(Roles = Roles.Administrator)]
+[Authorize]
 public class GetEmpleadoWithPaginationQuery : IRequest<PaginatedList<EmpleadoDto>>
 {
     public int PageNumber { get; init; } = 1;

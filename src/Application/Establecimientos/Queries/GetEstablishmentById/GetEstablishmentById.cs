@@ -2,7 +2,6 @@ using WebApiAlertaMinsal.Application.Establecimientos.Dtos;
 
 namespace WebApiAlertaMinsal.Application.Establecimientos.Queries.GetEstablishmentById;
 
-[Authorize(Roles = Roles.Administrator)]
 public record GetEstablishmentByIdQuery(int Id) : IRequest<EstablecimientoDto>;
 
 public class GetEstablishmentByIdQueryHandler(IApplicationDbContext context, IMapper mapper)

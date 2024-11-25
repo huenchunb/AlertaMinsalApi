@@ -13,6 +13,7 @@ public class GetAggresionsSummaryResponseDto
     public EstablishmentSummaryDto VerbalEstablishment { get; set; } = null!;
 };
 
+[Authorize]
 public record GetAggresionsSummaryQuery
     : IRequest<GetAggresionsSummaryResponseDto>;
 
