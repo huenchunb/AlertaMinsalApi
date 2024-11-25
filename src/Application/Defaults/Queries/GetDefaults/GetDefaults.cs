@@ -11,6 +11,11 @@ public class GetDefaultsResponseDto
     public List<LookupDto> Comunas { get; set; } = [];
     public List<LookupDto> TipoAgresores { get; set; } = [];
     public List<LookupDto> TipoAgresiones { get; set; } = [];
+    public List<LookupDto> TipoEstablecimiento { get; set; } = [];
+    public List<LookupDto> NivelEstablecimiento { get; set; } = [];
+    public List<LookupDto> ComplejidadesEstablecimiento { get; set; } = [];
+    public List<LookupDto> TipoAtencionEstablecimiento { get; set; } = [];
+    public List<LookupDto> TipoUrgenciaEstablecimiento { get; set; } = [];
     public List<EmpleadoDefaultDto> Empleados { get; set; } = [];
     public List<TipoAgresionCategoriaDto> TipoAgresionesCategorias { get; set; } = [];
     public List<RolDto> Roles { get; set; } = [];
@@ -66,6 +71,31 @@ public class GetDefaultsQueryHandler(IApplicationDbContext context, IIdentitySer
             .OrderBy(x => x.FullName)
             .ToListAsync(cancellationToken);
 
+        var tipoEstablecimiento = await context.TipoEstablecimiento
+            .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
+            .OrderBy(x => x.Name)
+            .ToListAsync(cancellationToken);
+        
+        var nivelEstablecimiento = await context.NivelEstablecimiento
+            .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
+            .OrderBy(x => x.Id)
+            .ToListAsync(cancellationToken);
+        
+        var complejidadesEstablecimiento = await context.ComplejidadEstablecimiento
+            .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
+            .OrderBy(x => x.Id)
+            .ToListAsync(cancellationToken);
+        
+        var tipoAtencionEstablecimiento = await context.TipoAtencionEstablecimiento
+            .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
+            .OrderBy(x => x.Name)
+            .ToListAsync(cancellationToken);
+        
+        var tipoUrgenciaEstablecimiento = await context.TipoUrgenciaEstablecimiento
+            .ProjectTo<LookupDto>(mapper.ConfigurationProvider)
+            .OrderBy(x => x.Id)
+            .ToListAsync(cancellationToken);
+
         return new GetDefaultsResponseDto
         {
             Establecimientos = establecimientos,
@@ -76,7 +106,12 @@ public class GetDefaultsQueryHandler(IApplicationDbContext context, IIdentitySer
             TipoAgresores = tipoAgresores,
             TipoAgresiones = tipoAgresiones,
             TipoAgresionesCategorias = tipoAgresionesCategorias,
-            Empleados = empleados
+            Empleados = empleados,
+            TipoEstablecimiento = tipoEstablecimiento,
+            NivelEstablecimiento = nivelEstablecimiento,
+            ComplejidadesEstablecimiento = complejidadesEstablecimiento,
+            TipoAtencionEstablecimiento = tipoAtencionEstablecimiento,
+            TipoUrgenciaEstablecimiento = tipoUrgenciaEstablecimiento
         };
     }
 }

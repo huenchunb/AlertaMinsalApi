@@ -1439,6 +1439,36 @@
               "$ref": "#/components/schemas/LookupDto"
             }
           },
+          "tipoEstablecimiento": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "nivelEstablecimiento": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "complejidadesEstablecimiento": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "tipoAtencionEstablecimiento": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
+          "tipoUrgenciaEstablecimiento": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LookupDto"
+            }
+          },
           "empleados": {
             "type": "array",
             "items": {
