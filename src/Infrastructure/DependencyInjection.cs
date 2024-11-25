@@ -1,4 +1,5 @@
-﻿using WebApiAlertaMinsal.Application.Common.Interfaces;
+﻿using Microsoft.AspNetCore.Http;
+using WebApiAlertaMinsal.Application.Common.Interfaces;
 using WebApiAlertaMinsal.Domain.Constants;
 using WebApiAlertaMinsal.Infrastructure.Data;
 using WebApiAlertaMinsal.Infrastructure.Data.Interceptors;
@@ -33,6 +34,12 @@ public static class DependencyInjection
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        });
+        
         services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme);
 
