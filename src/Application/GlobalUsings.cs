@@ -14,3 +14,4 @@ global using WebApiAlertaMinsal.Application.Common.Mappings;
 global using WebApiAlertaMinsal.Application.Common.Exceptions;
 global using WebApiAlertaMinsal.Domain.Enums;
 global using WebApiAlertaMinsal.Domain.ValueObjects;
+global using System.Globalization;

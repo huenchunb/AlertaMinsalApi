@@ -1,11 +1,10 @@
-using System.Globalization;
-
 namespace WebApiAlertaMinsal.Application.Agresiones.Queries.GetAggressions;
 
 [Authorize]
 public class GetAggressionQuery : IRequest<PaginatedList<AggressionDto>>
 {
     public int? EstablecimientoId { get; set; }
+    public int? EmpleadoId { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
 };
@@ -24,7 +23,12 @@ public record GetAggressionQueryHandler(IApplicationDbContext Context, IIdentity
         {
             query = query.Where(ag => ag.Empleado.Establecimiento.Id == request.EstablecimientoId);
         }
-        
+
+        if (request.EmpleadoId != null)
+        {
+            query = query.Where(ag => ag.Empleado.Id == request.EmpleadoId);
+        }
+
         var agresiones = await query
             .Include(ag => ag.Empleado)
             .ThenInclude(em => em.Comuna)
@@ -107,7 +111,7 @@ public record GetAggressionQueryHandler(IApplicationDbContext Context, IIdentity
             .OrderByDescending(ag => ag.AgresionId)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
 
-        
+
         foreach (var aggression in agresiones.Items)
         {
             var usuarioCreacion =
@@ -121,12 +125,12 @@ public record GetAggressionQueryHandler(IApplicationDbContext Context, IIdentity
                     select empleado).FirstOrDefaultAsync(cancellationToken);
 
             aggression.CreadoPor = usuarioCreacion == null ? "Administrador" : usuarioCreacion.FullName;
-            aggression.ActualizadoPor = usuarioActualizacion == null ? "Administrador"  : usuarioActualizacion.FullName;
+            aggression.ActualizadoPor = usuarioActualizacion == null ? "Administrador" : usuarioActualizacion.FullName;
             aggression.FechaAgresionNormalizada = aggression.FechaAgresion.ToString("MMMM d, yyyy", cultura);
             aggression.FechaCreacionNormalizada = aggression.FechaCreacion.ToString("MMMM d, yyyy", cultura);
             aggression.FechaActualizacionNormalizada = aggression.FechaActualizacion.ToString("MMMM d, yyyy", cultura);
         }
-        
+
         return agresiones;
     }
 };
