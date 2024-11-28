@@ -1,3 +1,5 @@
+using WebApiAlertaMinsal.Domain.Events;
+
 namespace WebApiAlertaMinsal.Application.Agresiones.Commands.CreateAgresion;
 
 [Authorize]
@@ -18,7 +20,11 @@ public class CreateAgresionCommand : IRequest
     }
 }
 
-public class CreateAgresionCommandHandler(IApplicationDbContext context, IMapper mapper)
+public class CreateAgresionCommandHandler(
+    IApplicationDbContext context,
+    IMapper mapper,
+    IEmailService emailService,
+    ITemplateRenderer templateRenderer)
     : IRequestHandler<CreateAgresionCommand>
 {
     public async Task Handle(CreateAgresionCommand request, CancellationToken cancellationToken)
@@ -37,5 +43,25 @@ public class CreateAgresionCommandHandler(IApplicationDbContext context, IMapper
 
         await context.Agresion.AddAsync(agresion, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
+
+        agresion.AddDomainEvent(new CreateAggresionEvent(agresion));
+
+        var empleado = await context.Empleado
+            .Where(x => x.Id == agresion.EmpleadoId)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (empleado != null)
+        {
+            var model = new
+            {
+                name = empleado.FullName,
+                message =
+                    "Se ha registrado una agresión en donde has sido víctima. Recuerda revisar los antecedentes, aprobar o rechazar esta agresión."
+            };
+            var htmlContent = await templateRenderer.RenderTemplateAsync("EmailTemplate.sbn", model);
+
+            await emailService.SendMailAsync(empleado.Email, "Haz denunciado una agresión que requiere tu aprobación",
+                htmlContent);
+        }
     }
 }

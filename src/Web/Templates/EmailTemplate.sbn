@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+        .header { background-color: #98211b; padding: 10px; text-align: center; }
+        .body { font-family: Arial, sans-serif; padding: 20px; }
+        .button {font-family: Arial, sans-serif; padding:12px; }
+        .footer { background-color: #98211b; text-align: center; padding: 10px; }
+    </style>
+    <title>Email</title>
+</head>
+<body>
+<div class="header">
+    <h1>¡Hola, {{ name }}!</h1>
+</div>
+<div class="body">
+    <p>{{ message }}</p>
+</div>
+<div class="link">
+    <button><a href="https://alerta-minsal-front.vercel.app">Revisar agresión</a></button>
+</div>
+<div class="footer">
+    <p>Gracias por usar nuestra aplicación.</p>
+</div>
+</body>
+</html>
