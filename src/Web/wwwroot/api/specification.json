@@ -1462,8 +1462,25 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EnumEstadoAgresion"
           }
         }
+      },
+      "EnumEstadoAgresion": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Ingresada",
+          "Aprobada",
+          "Rechazada"
+        ],
+        "enum": [
+          1,
+          2,
+          3
+        ]
       },
       "GetDefaultsResponseDto": {
         "type": "object",
