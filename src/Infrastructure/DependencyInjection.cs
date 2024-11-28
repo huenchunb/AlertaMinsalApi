@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Http;
 using WebApiAlertaMinsal.Application.Common.Interfaces;
 using WebApiAlertaMinsal.Domain.Constants;
 using WebApiAlertaMinsal.Infrastructure.Data;
@@ -9,6 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Services.SimpleEmailTransferProtocol;
+using Microsoft.Extensions.Options;
+using WebApiAlertaMinsal.Infrastructure.Services.TemplateRenderer;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +23,12 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
+        services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+        services.AddSingleton(resolver =>
+            resolver.GetRequiredService<IOptions<SmtpSettings>>().Value);
+
+        services.AddScoped<ITemplateRenderer, ScribanTemplateRenderer>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
@@ -53,8 +61,9 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddApiEndpoints()
             .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
-        
-        services.AddOptions<BearerTokenOptions>(IdentityConstants.BearerScheme).Configure(options => {
+
+        services.AddOptions<BearerTokenOptions>(IdentityConstants.BearerScheme).Configure(options =>
+        {
             options.BearerTokenExpiration = TimeSpan.FromDays(1);
         });
 
