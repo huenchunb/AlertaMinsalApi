@@ -33,8 +33,8 @@ public class CreateEstablishmentCommandHandler(IApplicationDbContext context)
             PhoneNumber = request.PhoneNumber,
             Urgency = request.Urgency,
             TipoUrgenciaEstablecimientoId = request.TipoUrgenciaEstablecimientoId,
-            Longitude = request.Longitude,
-            Latitude = request.Latitude,
+            Longitude = request.Latitude,
+            Latitude = request.Longitude,
             ComplejidadEstablecimientoId = request.ComplejidadEstablecimientoId,
             TipoAtencionEstablecimientoId = request.TipoAtencionEstablecimientoId,
             ComunaId = request.ComunaId
