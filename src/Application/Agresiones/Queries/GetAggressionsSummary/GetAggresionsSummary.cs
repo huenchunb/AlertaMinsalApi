@@ -9,6 +9,7 @@ public class GetAggresionsSummaryResponseDto
 {
     public int AttacksReported { get; set; }
     public int ApprovedAttacks { get; set; }
+    public int DeclinedAttacks { get; set; }
     public EstablishmentSummaryDto PhysicalEstablishment { get; set; } = null!;
     public EstablishmentSummaryDto VerbalEstablishment { get; set; } = null!;
 };
@@ -23,10 +24,13 @@ public class GetAggresionsSummaryQueryHandler(IApplicationDbContext context)
     public async Task<GetAggresionsSummaryResponseDto> Handle(GetAggresionsSummaryQuery request, CancellationToken cancellationToken)
     {
         var attacksReported = await context.Agresion
-            .CountAsync(a => a.EstadoAgresionId == 1);
+            .CountAsync(a => a.EstadoAgresionId == 1, cancellationToken);
 
         var approvedAttacks = await context.Agresion
-            .CountAsync(a => a.EstadoAgresionId == 2);
+            .CountAsync(a => a.EstadoAgresionId == 2, cancellationToken);
+        
+        var declinedAttacks = await context.Agresion
+            .CountAsync(a => a.EstadoAgresionId == 3, cancellationToken);
 
         var physicalEstablishment = await context.Agresion
             .Where(a => a.TipoAgresionCategorias.Any(ac => ac.CategoriaAgresion.TipoAgresion.Id == (int)EnumTipoAgresion.Fisica))
@@ -37,7 +41,7 @@ public class GetAggresionsSummaryQueryHandler(IApplicationDbContext context)
                 Quantity = g.Count()
             })
             .OrderByDescending(e => e.Quantity)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
 
         var verbalEstablishment = await context.Agresion
             .Where(a => a.TipoAgresionCategorias.Any(ac => ac.CategoriaAgresion.TipoAgresion.Id == (int)EnumTipoAgresion.Verbal))
@@ -48,12 +52,13 @@ public class GetAggresionsSummaryQueryHandler(IApplicationDbContext context)
                 Quantity = g.Count()
             })
             .OrderByDescending(e => e.Quantity)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
 
         return new GetAggresionsSummaryResponseDto
         {
             AttacksReported = attacksReported,
             ApprovedAttacks = approvedAttacks,
+            DeclinedAttacks = declinedAttacks,
             PhysicalEstablishment = physicalEstablishment!,
             VerbalEstablishment = verbalEstablishment!
         };

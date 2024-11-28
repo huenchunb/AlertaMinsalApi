@@ -1,7 +1,7 @@
 namespace Microsoft.Extensions.DependencyInjection.Agresiones.Commands.ApproveAggression;
 
 [Authorize]
-public record ApproveAggressionCommand(int Id) : IRequest<int>;
+public record ApproveAggressionCommand(int Id, EnumEstadoAgresion estado) : IRequest<int>;
 
 public class ApproveAggressionCommandHandler(IApplicationDbContext Context)
     : IRequestHandler<ApproveAggressionCommand, int>
@@ -15,7 +15,7 @@ public class ApproveAggressionCommandHandler(IApplicationDbContext Context)
 
         Guard.Against.NotFound(request.Id, aggression);
 
-        aggression.EstadoAgresionId = (int)EnumEstadoAgresion.Aprobada;
+        aggression.EstadoAgresionId = (int)request.estado;
 
         await Context.SaveChangesAsync(cancellationToken);
 
